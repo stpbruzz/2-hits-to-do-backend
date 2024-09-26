@@ -21,13 +21,6 @@ namespace to_do_api.Controllers
             return Ok(await _context.Tasks.ToListAsync());
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetTaskById(int id)
-        {
-            var task = await _context.Tasks.FindAsync(id);
-            return task == null ? NotFound() : Ok(task);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateTaskByDescription([FromBody] string description)
         {
