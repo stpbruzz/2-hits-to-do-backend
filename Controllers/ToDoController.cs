@@ -38,15 +38,6 @@ namespace to_do_api.Controllers
             return Ok(task);
         }
 
-        [HttpPost("flag")]
-        public async Task<IActionResult> CreateTaskByDescriptionAndFlag(ToDoTask task)
-        {
-            _context.Tasks.Add(task);
-            await _context.SaveChangesAsync();
-
-            return Ok(task);
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
@@ -62,7 +53,7 @@ namespace to_do_api.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}/description")]
+        [HttpPatch("{id}/description")]
         public async Task<IActionResult> UpdateTaskDescription(int id, [FromBody] string updatedDescription)
         {
             var task = await _context.Tasks.FindAsync(id);
@@ -77,7 +68,7 @@ namespace to_do_api.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}/flag")]
+        [HttpPatch("{id}/flag")]
         public async Task<IActionResult> SwitchTaskFlag(int id)
         {
             var task = await _context.Tasks.FindAsync(id);
@@ -92,7 +83,7 @@ namespace to_do_api.Controllers
             return NoContent();
         }
 
-        [HttpPut("list")]
+        [HttpPut]
         public async Task<IActionResult> SetNewList(List<ToDoTask> tasks)
         {
             _context.Tasks.RemoveRange(_context.Tasks);
