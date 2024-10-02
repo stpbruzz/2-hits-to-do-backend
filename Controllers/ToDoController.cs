@@ -22,9 +22,9 @@ namespace to_do_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTaskByDescription([FromBody] string description)
+        public async Task<IActionResult> CreateTaskByDescription(ToDoTask description)
         {
-            var task = new ToDoTask { Description = description };
+            var task = new ToDoTask { Description = description.Description };
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
 
@@ -47,7 +47,7 @@ namespace to_do_api.Controllers
         }
 
         [HttpPatch("{id}/description")]
-        public async Task<IActionResult> UpdateTaskDescription(int id, [FromBody] string updatedDescription)
+        public async Task<IActionResult> UpdateTaskDescription(int id, ToDoTask updatedDescription)
         {
             var task = await _context.Tasks.FindAsync(id);
             if (task == null)
@@ -55,7 +55,7 @@ namespace to_do_api.Controllers
                 return NotFound();
             }
 
-            task.Description = updatedDescription;
+            task.Description = updatedDescription.Description;
             await _context.SaveChangesAsync();
 
             return NoContent();
